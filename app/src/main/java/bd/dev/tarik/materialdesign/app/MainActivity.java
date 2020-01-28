@@ -2,7 +2,10 @@ package bd.dev.tarik.materialdesign.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+//import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -10,13 +13,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.Objects;
 
 import bd.dev.tarik.materialdesign.R;
+import bd.dev.tarik.materialdesign.adapter.RecyclerAdapter;
+import bd.dev.tarik.materialdesign.model.Landscape;
 
 public class MainActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+    MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerAdapter adapter = new RecyclerAdapter(this, Landscape.getData());
+        recyclerView.setAdapter(adapter);
+
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
+        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(mLinearLayoutManagerVertical);
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator()); // Even if we don't use it then also our items shows default animation # Check Docs
 
     }
 
